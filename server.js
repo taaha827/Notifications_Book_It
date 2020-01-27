@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+//Importing Express
+const express = require("express");
+const app = express();
 var FCM = require('fcm-node')
 var serverKey = 'AAAA1c07Ogk:APA91bGBHY1BcODcHD1k-rkZ7V9KEIMBe-eV7mHICL35bx91nzrqJ31t3oUeuX7ZK2JYArQSqGuQBKL89d4ddpC4CYzVCT6skQE1_2qVUkq_QlV09r_rXPLZ0dAlT8-lbadBPjwoBJ7a'
 const fcm = new FCM(serverKey)
@@ -119,3 +122,4 @@ mongoose.connect(' mongodb+srv://taaha827:randompassword@cluster0-xezp5.mongodb.
       })
   }, dayInMilliseconds)
 })
+app.listen(process.env.PORT|| 8080);
