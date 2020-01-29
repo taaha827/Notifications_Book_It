@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
-//Importing Express
-const express = require("express");
-const app = express();
+// Importing Express
+const express = require('express')
+const app = express()
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 var FCM = require('fcm-node')
 var serverKey = 'AAAA1c07Ogk:APA91bGBHY1BcODcHD1k-rkZ7V9KEIMBe-eV7mHICL35bx91nzrqJ31t3oUeuX7ZK2JYArQSqGuQBKL89d4ddpC4CYzVCT6skQE1_2qVUkq_QlV09r_rXPLZ0dAlT8-lbadBPjwoBJ7a'
 const fcm = new FCM(serverKey)
@@ -22,7 +25,7 @@ var dayInMilliseconds = 1000 * 60 * 60 * 24
 mongoose.connect(' mongodb+srv://taaha827:randompassword@cluster0-xezp5.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
   console.log('Connection Successfull')
   setInterval(() => {
-      console.log('In first set interval')
+    console.log('In first set interval')
     appointment.find({ status: 'accepted' })
       .populate('owner', { notificationToken: 1, firstName: 1, lastName: 1 })
       .populate('customer', { firstName: 1, lastName: 1 })
@@ -122,4 +125,7 @@ mongoose.connect(' mongodb+srv://taaha827:randompassword@cluster0-xezp5.mongodb.
       })
   }, dayInMilliseconds)
 })
-app.listen(process.env.PORT|| 8080);
+app.get('/', function (req, res) {
+  res.status(200).send('Welcome to our restful API')
+})
+app.listen(process.env.PORT || 8080)
